@@ -52,15 +52,12 @@ def desenhar_texto_estilizado(frame, text, pos, font_scale=1, font_thickness=2, 
     # Desenhar fundo para o texto
     (text_width, text_height), _ = cv2.getTextSize(text, font, font_scale, font_thickness)
     x, y = pos
-    bg_color_bgr = bg_color[:]  # A cor do fundo (sem o alpha)
+    bg_color_bgr = bg_color[:]  
     overlay = frame.copy()
     cv2.rectangle(overlay, (x, y - text_height - 10), (x + text_width + 10, y + 10), bg_color_bgr, -1)
-    
-    # Adicionar o texto sobre o fundo
     cv2.putText(overlay, text, (x + 5, y), font, font_scale, text_color, font_thickness)
 
-    # Aplicar o efeito de transparência
-    alpha = bg_color[3]  # Transparência
+    alpha = bg_color[3]
     cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0, frame)
 
 # Captura de vídeo da câmera IP ou webcam local
